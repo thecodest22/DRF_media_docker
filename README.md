@@ -1,1 +1,1 @@
-# DRF_media_docker
+# example-package

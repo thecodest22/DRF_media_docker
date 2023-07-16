@@ -1,0 +1,34 @@
+[project]
+name = ""
+version = ""
+description = ""
+authors = [
+    {name = "codest", email = "thecodest@ya.ru"},
+]
+dependencies = [
+    "Django",
+    "djangorestframework",
+    "django-rest-swagger",
+    "django-filter",
+    "markdown",
+    "django-cors-headers",
+    "django-versatileimagefield",
+    "django-model-utils",
+    "djoser",
+    "requests",
+    "Pillow",
+    "python-dotenv",
+    "drf-writable-nested",
+    "django-constance[database]",
+    "psycopg2-binary",
+    "django-ckeditor",
+    "gunicorn",
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
