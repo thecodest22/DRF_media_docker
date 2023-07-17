@@ -1,6 +1,6 @@
 from django.db import models
 
-from project_common.models import BaseModel
+from project_common.models import BaseModel, BaseImage
 
 
 class Post(BaseModel):
@@ -9,3 +9,7 @@ class Post(BaseModel):
 
     def __str__(self):
         return self.title
+
+
+class PostImage(BaseImage):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
