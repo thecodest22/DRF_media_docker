@@ -1,5 +1,13 @@
+from os import getenv
 import sys
 from pathlib import Path
+
+from django.utils.timezone import timedelta
+
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -8,7 +16,7 @@ STATIC_DIR = BASE_DIR.parent
 
 sys.path.append((BASE_DIR / 'apps').as_posix())
 
-SECRET_KEY = 'django-insecure-=sa$$6qy4*#ocb-guco9k%ko6yrt42kauub+7nc53t)lc1w6!6'
+SECRET_KEY = getenv('SECRET_KEY')
 
 DEBUG = True
 
@@ -35,6 +43,8 @@ INSTALLED_APPS = [
     # --------- Local ---------
     'apps.users.apps.UsersConfig',
     'apps.posts.apps.PostsConfig',
+    'apps.videos.apps.VideosConfig',
+    'apps.files.apps.FilesConfig',
 ]
 
 MIDDLEWARE = [
@@ -114,17 +124,18 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
     ],
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
     ),
-    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 10,
-    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
 AUTH_USER_MODEL = 'users.User'
@@ -205,4 +216,9 @@ CONSTANCE_ADDITIONAL_FIELDS = {
         'widget': 'django.forms.Select',
         'choices': (('EN', 'English'), ('RU', 'Русский'))
     }]
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=14),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
 }
